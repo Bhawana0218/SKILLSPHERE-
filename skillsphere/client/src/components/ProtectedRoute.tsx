@@ -13,15 +13,27 @@ interface User {
 //  Props Type
 interface ProtectedRouteProps {
   children: ReactNode;
+  // role?: string;
 }
 
 function ProtectedRoute({ children }: ProtectedRouteProps) {
-    
-  //  Safe localStorage parsing
+
+  const token = localStorage.getItem("token");
+
   const storedUser = localStorage.getItem("user");
   const user: User | null = storedUser ? JSON.parse(storedUser) : null;
 
-  return user ? <>{children}</> : <Navigate to="/" replace />;
+  //  MAIN AUTH CHECK
+  if (!token || !user) {
+    return <Navigate to="/" replace />; // or "/login"
+  }
+
+  // if (role && user.role !== role) {
+  //   return <Navigate to="/dashboard" replace />;
+  // }
+
+  return <>{children}</>;
 }
+
 
 export default ProtectedRoute;

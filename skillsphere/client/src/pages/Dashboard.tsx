@@ -1,6 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
+
+const chartData = [
+  { month: "Jan", earnings: 2000 },
+  { month: "Feb", earnings: 5000 },
+  { month: "Mar", earnings: 8000 },
+];
+
 // Define User Type
 interface User {
   _id: string;
@@ -28,6 +36,12 @@ function Dashboard() {
       <h1 className="text-3xl">
         Welcome {user?.name} ({user?.role})
       </h1>
+      <LineChart width={400} height={200} data={chartData}>
+  <XAxis dataKey="month" />
+  <YAxis />
+  <Tooltip />
+  <Line type="monotone" dataKey="earnings" />
+</LineChart>
     </div>
   );
 }

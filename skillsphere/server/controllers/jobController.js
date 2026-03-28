@@ -31,3 +31,38 @@ export const getJobById = async (req, res) => {
   const job = await Job.findById(req.params.id).populate("client", "name email");
   res.json(job);
 };
+
+
+
+
+// ADVANCED SEARCH
+export const searchJobs = async (req, res) => {
+  try {
+    const { keyword, minBudget, maxBudget, skills } = req.query;
+
+    let query = {};
+
+    // Keyword search
+    if (keyword) {
+      query.title = { $regex: keyword, $options: "i" };
+    }
+
+    // Budget filter
+    if (minBudget || maxBudget) {
+      query.budget = {};
+      if (minBudget) query.budget.$gte = Number(minBudget);
+      if (maxBudget) query.budget.$lte = Number(maxBudget);
+    }
+
+    // Skills filter
+    if (skills) {
+      query.skillsRequired = { $in: skills.split(",") };
+    }
+
+    const jobs = await Job.find(query).populate("client", "name");
+
+    res.json(jobs);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import API from "../services/api";
 
 // Freelancer Type
@@ -15,11 +16,19 @@ interface Proposal {
 }
 
 // Props Type
-interface ProposalsProps {
-  jobId: string;
-}
+// interface ProposalsProps {
+//   jobId: string;
+// }
 
-function Proposals({ jobId }: ProposalsProps) {
+function Proposals() {
+
+  const { jobId } = useParams<{ jobId: string }>();
+
+useEffect(() => {
+  if (!jobId) return; 
+  fetchProposals();
+}, [jobId]);
+
   const [proposals, setProposals] = useState<Proposal[]>([]);
 
   useEffect(() => {

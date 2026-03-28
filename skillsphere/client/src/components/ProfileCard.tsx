@@ -27,9 +27,9 @@ interface ProfileCardProps {
 const ProfileCard: FC<ProfileCardProps> = ({ profile }) => {
   return (
     <div className="bg-gray-800 p-6 rounded-2xl shadow-lg">
-      <h2 className="text-xl font-bold">{profile.user.name}</h2>
+      <h2 className="text-xl font-bold required:">{profile.user.name}</h2>
 
-      <p className="text-gray-400">{profile.bio}</p>
+      <p className="text-gray-400 required:">{profile.bio}</p>
 
       {/* Skills */}
       <div className="mt-4">

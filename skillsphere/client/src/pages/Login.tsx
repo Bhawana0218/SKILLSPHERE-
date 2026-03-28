@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { ChangeEvent, FormEvent} from 'react';
+// import { useLocation } from "react-router-dom";
 
 import API from "../services/api";
 import { useNavigate, Link } from "react-router-dom";
@@ -34,6 +35,7 @@ function Login() {
     try {
       const { data } = await API.post<UserResponse>("/auth/login", form);
 
+      localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data));
 
       navigate("/dashboard");
@@ -42,6 +44,7 @@ function Login() {
     }
   };
 
+
   // Input Change Handler
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -49,6 +52,12 @@ function Login() {
       [e.target.name]: e.target.value,
     });
   };
+
+//   const location = useLocation();
+
+//   if (location.pathname === "/home" || location.pathname === "/register") {
+//   return null;
+// }
 
   return (
     <div className="flex h-screen items-center justify-center bg-gray-900">

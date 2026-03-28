@@ -20,6 +20,13 @@ interface Job {
 
 function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [filters, setFilters] = useState({
+  keyword: "",
+  minBudget: "",
+  maxBudget: "",
+  skills: "",
+});
+
 
   useEffect(() => {
     fetchJobs();
@@ -35,8 +42,50 @@ function Jobs() {
     }
   };
 
+  const searchJobs = async () => {
+  const query = new URLSearchParams(filters).toString();
+  const { data } = await API.get(`/jobs/search?${query}`);
+  setJobs(data);
+};
+
   return (
     <div className="p-10 bg-gray-900 text-white min-h-screen">
+
+{/* // New  */}
+
+<h1 className="text-3xl mb-6">Search For a Jobs</h1>
+
+      <div className="mb-6 space-y-2">
+  <input placeholder="Search jobs..."
+    className="p-2 w-full bg-gray-800"
+    onChange={(e) => setFilters({ ...filters, keyword: e.target.value })}
+  />
+
+  <div className="flex gap-2">
+    <input placeholder="Min Budget"
+      className="p-2 bg-gray-800"
+      onChange={(e) => setFilters({ ...filters, minBudget: e.target.value })}
+    />
+
+    <input placeholder="Max Budget"
+      className="p-2 bg-gray-800"
+      onChange={(e) => setFilters({ ...filters, maxBudget: e.target.value })}
+    />
+  </div>
+
+  <input placeholder="Skills (React,Node)"
+    className="p-2 w-full bg-gray-800"
+    onChange={(e) => setFilters({ ...filters, skills: e.target.value })}
+  />
+
+  <button onClick={searchJobs}
+    className="bg-blue-600 px-4 py-2 rounded">
+    Search
+  </button>
+</div>
+
+{/* //New */}
+
       <h1 className="text-3xl mb-6">Available Jobs</h1>
 
       <div className="grid gap-6">

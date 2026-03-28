@@ -1,8 +1,12 @@
 // server.js
+
+import "./config/env.js";
 import express from "express";
 import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
 import cors from "cors";
 import { Server } from "socket.io";
+
 
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -11,6 +15,13 @@ import profileRoutes from "./routes/profileRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import proposalRoutes from "./routes/proposalRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
+import availabilityRoutes from "./routes/availabilityRoutes.js";
+import disputeRoutes from "./routes/disputeRoutes.js";
+import progressRoutes from "./routes/progressRoutes.js";
+import analyticsRoutes from "./routes/analyticsRoutes.js";
+
 
 dotenv.config();
 connectDB();
@@ -30,6 +41,13 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/proposals", proposalRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/availability", availabilityRoutes);
+app.use("/api/disputes", disputeRoutes);
+app.use("/api/progress", progressRoutes);
+app.use("/api/analytics", analyticsRoutes);
+
 
 // Start server
 const PORT = process.env.PORT || 5000;
@@ -67,6 +85,27 @@ io.on("connection", (socket) => {
   socket.on("typing", ({ roomId, sender }) => {
     socket.to(roomId).emit("typing", { sender });
   });
+
+   // Notification Functionality
+  // -----------------------------
+  // Each user has a private notification room
+  socket.on("joinUser", (userId) => {
+    socket.join(userId); 
+    console.log(`Socket ${socket.id} joined user room ${userId}`);
+  });
+
+  socket.on("sendNotification", async ({ userId, type, message, link }) => {
+    try {
+      // Save notification in DB (implement createNotification function)
+      const notif = await createNotification(userId, type, message, link);
+
+      // Emit notification to the specific user
+      io.to(userId).emit("receiveNotification", notif);
+    } catch (error) {
+      console.error("Notification error:", error);
+    }
+  });
+
 
   socket.on("disconnect", () => {
     console.log("Client disconnected: ", socket.id);
