@@ -61,7 +61,7 @@ app.use(
   })
 );
 
-app.options("*", cors(corsOptions));
+// app.options("*", cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req, res) => {
