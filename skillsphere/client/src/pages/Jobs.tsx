@@ -232,13 +232,16 @@ export default function JobsDashboard() {
         postedAt: new Date().toISOString(),
       };
 
-      // if (editingJob) {
-      //   const response = await API.put(`/jobs/${editingJob._id}`, payload);
-      //   showNotification("success", `Job updated successfully!`);
-      // } else {
-      //   const response = await API.post("/jobs", payload);
-      //   showNotification("success", `Job created successfully!`);
-      // }
+      if (editingJob) {
+        const response = await API.put(`/jobs/${editingJob._id}`, payload);
+        showNotification("success", `Job updated successfully!`);
+         console.log(response.data);
+      } else {
+        const response = await API.post("/jobs", payload);
+        showNotification("success", `Job created successfully!`);
+         console.log(response.data);
+      }
+     
 
       closeModal();
       fetchJobs();
