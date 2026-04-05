@@ -35,9 +35,6 @@ function ProtectedRoute({ children }: ProtectedRouteProps) {
     return <Navigate to="/verify-required" replace />;
   }
 
-  // if (role && user.role !== role) {
-  //   return <Navigate to="/dashboard" replace />;
-  // }
 
   return <>{children}</>;
 }

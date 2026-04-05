@@ -11,7 +11,7 @@ import { Server } from "socket.io";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import testRoutes from "./routes/testRoutes.js";
-import profileRoutes from "./routes/profileRoutes.js";
+import clientProfileRoutes from "./routes/clientProfileRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import proposalRoutes from "./routes/proposalRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
@@ -70,7 +70,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);
-app.use("/api/profile", profileRoutes);
+app.use("/api/client", clientProfileRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/proposals", proposalRoutes);
 app.use("/api/payments", paymentRoutes);

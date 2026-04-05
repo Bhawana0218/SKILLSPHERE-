@@ -9,7 +9,7 @@ const Footer = () =>{
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 ">
                 
-                  <img src='../../Logo.png' alt='SkillSphere' className='w-54 h-44 mx-auto -my-10'/>
+                  <img src='../../../Logo.png' alt='SkillSphere' className='w-54 h-44 mx-auto -my-10'/>
                 
               </div>
               <p className="text-slate-400 mb-6 leading-relaxed max-w-md">

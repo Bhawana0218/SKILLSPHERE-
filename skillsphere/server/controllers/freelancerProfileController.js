@@ -1,4 +1,4 @@
-import Profile from "../models/Profile.js";
+import Profile from "../models/ClientProfile.js";
 
 // CREATE / UPDATE PROFILE
 export const createOrUpdateProfile = async (req, res) => {

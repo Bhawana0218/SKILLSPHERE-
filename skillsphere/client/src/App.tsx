@@ -19,7 +19,6 @@ import Jobs from "./pages/jobs/job/Jobs";
 import CreateJob from "./pages/jobs/createNewJob/CreateJob";
 import JobDetails from "./pages/jobs/job/jobDetail/JobDetails";
 import Freelancers from "./pages/findFreelancers/Freelancers";
-import Profile from "./pages/auth/Profile";
 import Proposals from "./pages/Proposals";
 import BookSlot from "./pages/BookSlot";
 import FreelancerDashboardPage from "./pages/freelancer/Dashboard";
@@ -32,6 +31,7 @@ import FreelancerDashboard from "./pages/FreelancerDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ClientDashboard from "./pages/client/ClientDashboard";
 import ClientProposals from "./pages/client/ClientProposals";
+import ClientProfilePage from "./pages/auth/ClientProfile";
 
 
 function App() {
@@ -203,11 +203,11 @@ function App() {
         />
 
         <Route
-          path="/profile"
+          path="/client/profile"
           element={
             <ProtectedRoute>
              <MainLayout>
-                <Profile />
+                <ClientProfilePage />
              </MainLayout>
             </ProtectedRoute>
           }
