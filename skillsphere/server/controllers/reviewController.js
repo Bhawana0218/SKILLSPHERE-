@@ -1,4 +1,7 @@
 import Review from "../models/Review.js";
+import Job from '../models/Job.js';
+
+
 
 // ADD REVIEW
 export const addReview = async (req, res) => {
@@ -36,4 +39,26 @@ export const getFreelancerReviews = async (req, res) => {
   }).populate("reviewer", "name");
 
   res.json(reviews);
+};
+
+
+
+export const getFreelancerRating = async (req, res) => {
+  try {
+    const reviews = await Review.find({
+      freelancer: req.params.freelancerId,
+    });
+
+    const totalReviews = reviews.length;
+
+    const avgRating =
+      totalReviews === 0
+        ? 0
+        : reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews;
+
+    res.json({ avgRating, totalReviews });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };

@@ -11,7 +11,7 @@ import api from '../services/api';
 
 // --- Types ---
 interface Project {
-  id: number;
+  id: number | string;
   title: string;
   category: string;
   budget: string;
@@ -30,6 +30,20 @@ interface Project {
   };
   applications: number;
   featured?: boolean;
+
+   freelancer?: {
+    id?: string;
+    name?: string;
+  };
+}
+
+interface Review {
+  _id: string;
+  rating: number;
+  comment: string;
+  reviewer?: {
+    name: string;
+  };
 }
 
 interface Testimonial {
@@ -55,7 +69,7 @@ interface Notification {
 }
 
 // --- Mock Data ---
-const TESTIMONIALS: Testimonial[] = [];
+const [testimonials, settestimonials] = useState<Testimonial[]>([]);
 
 const FAQS: FAQ[] = [];
 
@@ -155,6 +169,12 @@ const SkillSphereHome: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [newReview, setNewReview] = useState({
+  rating: 5,
+  reviewText: ""
+  });
  
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -177,6 +197,8 @@ const SkillSphereHome: React.FC = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isPlayingTestimonial] = useState(true);
+  const [ratingData, setRatingData] = useState({ avgRating: 0, totalReviews: 0 });
+
   // const [isMuted, setIsMuted] = useState(true);
 
   // Notification system
@@ -217,6 +239,10 @@ const SkillSphereHome: React.FC = () => {
         rating: job.client?.rating || 4.7,
         verified: job.client?.verified ?? true,
       },
+      freelancer: {
+    id: job.freelancer?._id,
+    name: job.freelancer?.name
+  },
       applications: job.proposalCount || 0,
     }));
 
@@ -298,14 +324,14 @@ const SkillSphereHome: React.FC = () => {
 
   // Auto-rotate testimonials
   useEffect(() => {
-  if (!isPlayingTestimonial || TESTIMONIALS.length === 0) return;
+  if (!isPlayingTestimonial || testimonials.length === 0) return;
 
   const interval = setInterval(() => {
-    setActiveTestimonial(prev => (prev + 1) % TESTIMONIALS.length);
+    setActiveTestimonial(prev => (prev + 1) % testimonials.length);
   }, 6000);
 
   return () => clearInterval(interval);
-}, [isPlayingTestimonial]);
+}, [isPlayingTestimonial, testimonials.length]);
 
 
   // Handlers
@@ -356,9 +382,82 @@ const SkillSphereHome: React.FC = () => {
   ], []);
 
   const currentTestimonial =
-  TESTIMONIALS.length > 0
-    ? TESTIMONIALS[activeTestimonial]
+  testimonials.length > 0
+    ? testimonials[activeTestimonial]
     : null;
+
+    useEffect(() => {
+  const fetchtestimonials = async () => {
+    try {
+      const { data } = await api.get("/testimonials");
+      settestimonials(data || []);
+    } catch (error) {
+      console.error("Failed to fetch testimonials", error);
+    }
+  };
+
+  fetchtestimonials();
+
+}, []);
+
+useEffect(() => {
+  if (!selectedProject?.freelancer?.id) return;
+
+  const fetchRating = async () => {
+    const { data } = await api.get(
+      `/reviews/rating/${selectedProject?.freelancer?.id}`
+    );
+    setRatingData(data);
+  };
+
+  fetchRating();
+}, [selectedProject]);
+
+const handleSubmitReview = async () => {
+  if (!selectedProject?.freelancer?.id) {
+    addNotification("error", "No freelancer selected");
+    return;
+  }
+
+  try {
+    await api.post("/reviews", {
+      jobId: selectedProject.id, // ✅ now safe
+      freelancerId: selectedProject.freelancer.id,
+      rating: newReview.rating,
+      comment: newReview.reviewText
+    });
+
+    addNotification("success", "Review submitted!");
+
+    // refresh reviews
+    const { data } = await api.get(
+      `/reviews/${selectedProject.freelancer.id}`
+    );
+    setReviews(data);
+
+    setNewReview({ rating: 5, reviewText: "" });
+
+  } catch (error) {
+    addNotification("error", "Failed to submit review");
+  }
+};
+
+useEffect(() => {
+  if (!selectedProject?.freelancer?.id) return;
+
+  const fetchReviews = async () => {
+    try {
+      const { data } = await api.get(
+        `/reviews/${selectedProject?.freelancer?.id}`
+      );
+      setReviews(data);
+    } catch (error) {
+      console.error("Failed to fetch reviews");
+    }
+  };
+
+  fetchReviews();
+}, [selectedProject]);
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-800">
@@ -748,6 +847,21 @@ const SkillSphereHome: React.FC = () => {
                   <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-cyan-600 transition-colors">
                     {project.title}
                   </h3>
+                  <div className="flex items-center gap-1">
+  {[...Array(5)].map((_, i) => (
+    <Star
+      key={i}
+      className={
+        i < Math.round(ratingData.avgRating)
+          ? "text-amber-400"
+          : "text-gray-300"
+      }
+    />
+  ))}
+  <span className="text-sm text-slate-500 ml-2">
+    ({ratingData.totalReviews})
+  </span>
+</div>
                   <p className="text-slate-600 text-sm mb-4 line-clamp-2 flex-1">
                     {project.description}
                   </p>
@@ -806,6 +920,10 @@ const SkillSphereHome: React.FC = () => {
                       </motion.button>
                     </div>
                   </div>
+
+
+
+                  
                 </motion.div>
               ))}
             </div>
@@ -824,7 +942,7 @@ const SkillSphereHome: React.FC = () => {
         </div>
       </section>
 
-      {/* --- Testimonials Section --- */}
+      {/* --- testimonials Section --- */}
       <section className="py-20 bg-linear-to-br from-cyan-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
@@ -853,7 +971,7 @@ const SkillSphereHome: React.FC = () => {
               >
                 <div className="flex items-center gap-1 mb-6">
         
-                  {/* TESTIMONIALS[activeTestimonial]; */}
+                  {/* testimonials[activeTestimonial]; */}
 
 {[...Array(5)].map((_, i) => (
   <Star 
@@ -868,7 +986,7 @@ const SkillSphereHome: React.FC = () => {
                   {/* {[...Array(5)].map((_, i) => (
                     <Star 
                       key={i} 
-                      className={`w-5 h-5 ${i < TESTIMONIALS[activeTestimonial]?.rating ?? 0 ? "text-amber-400 fill-amber-400" : "text-slate-300"}`} 
+                      className={`w-5 h-5 ${i < testimonials[activeTestimonial]?.rating ?? 0 ? "text-amber-400 fill-amber-400" : "text-slate-300"}`} 
                     />
                   ))} */}
                 </div>
@@ -895,7 +1013,7 @@ const SkillSphereHome: React.FC = () => {
 
             <div className="flex items-center justify-center gap-4 mt-8">
               <button
-                onClick={() => setActiveTestimonial(prev => prev === 0 ? TESTIMONIALS.length - 1 : prev - 1)}
+                onClick={() => setActiveTestimonial(prev => prev === 0 ? testimonials.length - 1 : prev - 1)}
                 className="p-3 rounded-full bg-white border border-slate-200 hover:border-cyan-400 transition-colors shadow-sm"
                 aria-label="Previous testimonial"
               >
@@ -903,7 +1021,7 @@ const SkillSphereHome: React.FC = () => {
               </button>
               
               <div className="flex gap-2">
-                {TESTIMONIALS.map((_, index) => (
+                {testimonials.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setActiveTestimonial(index)}
@@ -919,8 +1037,8 @@ const SkillSphereHome: React.FC = () => {
               
               <button
                 onClick={() => {
-  if (TESTIMONIALS.length === 0) return;
-  setActiveTestimonial(prev => prev === TESTIMONIALS.length - 1 ? 0 : prev + 1);
+  if (testimonials.length === 0) return;
+  setActiveTestimonial(prev => prev === testimonials.length - 1 ? 0 : prev + 1);
 }}
                 className="p-3 rounded-full bg-white border border-slate-200 hover:border-cyan-400 transition-colors shadow-sm"
                 aria-label="Next testimonial"
@@ -1182,6 +1300,69 @@ const SkillSphereHome: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+
+
+      <div className="mt-6">
+  <h4 className="font-bold text-slate-900 mb-3">Reviews</h4>
+
+  {reviews.length === 0 ? (
+    <p className="text-slate-500 text-sm">No reviews yet</p>
+  ) : (
+    reviews.map((review) => (
+      <div key={review._id} className="border-b py-3">
+        <p className="font-semibold">{review.reviewer?.name}</p>
+
+        <div className="flex gap-1">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              className={i < review.rating ? "text-amber-400" : "text-gray-300"}
+            />
+          ))}
+        </div>
+
+        <p className="text-slate-600 text-sm">{review.comment}</p>
+      </div>
+    ))
+  )}
+</div>
+
+
+<div className="mt-6">
+  <h4 className="font-bold text-slate-900 mb-3">Add Review</h4>
+
+  <select
+    value={newReview.rating}
+    onChange={(e) =>
+      setNewReview({ ...newReview, rating: Number(e.target.value) })
+    }
+    className="border p-2 rounded mb-2 w-full"
+  >
+    {[5, 4, 3, 2, 1].map((r) => (
+      <option key={r} value={r}>
+        {r} Stars
+      </option>
+    ))}
+  </select>
+
+  <textarea
+    placeholder="Write your review..."
+    value={newReview.reviewText}
+    onChange={(e) =>
+      setNewReview({ ...newReview, reviewText: e.target.value })
+    }
+    className="border p-2 rounded w-full mb-3"
+  />
+
+ <button
+  onClick={handleSubmitReview}
+  disabled={!selectedProject}
+  className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+>
+  Submit Review
+</button>
+</div>
 
       {/* --- Post Project Modal --- */}
       <AnimatePresence>

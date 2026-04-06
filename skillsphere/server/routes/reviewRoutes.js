@@ -1,5 +1,5 @@
 import express from "express";
-import { addReview, getFreelancerReviews } from "../controllers/reviewController.js";
+import { addReview, getFreelancerReviews, getFreelancerRating } from "../controllers/reviewController.js";
 import { protect, authorizeRoles } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
@@ -9,5 +9,6 @@ router.post("/", protect, authorizeRoles("client"), addReview);
 
 // Get reviews
 router.get("/:freelancerId", getFreelancerReviews);
+router.get("/rating/:freelancerId", getFreelancerRating);
 
 export default router;
