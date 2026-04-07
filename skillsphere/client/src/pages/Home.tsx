@@ -1770,7 +1770,7 @@
 // }> = ({ children, variant = 'primary', onClick, href, className = '' }) => {
 //   const baseClasses = "px-6 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2";
 //   const variants = {
-//     primary: "bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl",
+//     primary: "bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl",
 //     secondary: "bg-white text-indigo-600 border-2 border-indigo-600 hover:bg-indigo-50",
 //     outline: "border-2 border-gray-300 text-gray-700 hover:border-indigo-600 hover:text-indigo-600"
 //   };
@@ -1894,7 +1894,7 @@
 //           <div className="flex justify-between items-center h-16">
 //             <div className="flex items-center">
 //               <div className="flex-shrink-0 flex items-center gap-2">
-//                 <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
+//                 <div className="w-8 h-8 bg-linear-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
 //                   <span className="text-white font-bold text-lg">S</span>
 //                 </div>
 //                 <span className="text-xl font-bold text-gray-900">SkillSphere</span>
@@ -1940,7 +1940,7 @@
 //       </nav>
 
 //       {/* 1. Hero Section */}
-//       <section className="relative bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-20 lg:py-32 overflow-hidden">
+//       <section className="relative bg-linear-to-br from-indigo-50 via-white to-purple-50 py-20 lg:py-32 overflow-hidden">
 //         <div className="absolute inset-0 opacity-30">
 //           <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
 //           <div className="absolute top-40 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
@@ -1950,7 +1950,7 @@
 //         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 //           <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
 //             Unlock Local Talent.<br />
-//             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+//             <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600">
 //               Empower Your Freelance Journey.
 //             </span>
 //           </h1>
@@ -2023,7 +2023,7 @@
 //           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 //             {(activeTab === 'clients' ? clientSteps : freelancerSteps).map((step, index) => (
 //               <div key={index} className="relative group">
-//                 <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
+//                 <div className="absolute -inset-0.5 bg-linear-to-r from-indigo-600 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
 //                 <div className="relative bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
 //                   <div className="text-4xl mb-4">{step.icon}</div>
 //                   <div className="flex items-center gap-3 mb-3">
@@ -2041,7 +2041,7 @@
 //       </section>
 
 //       {/* 3. AI-Powered Job Matching Demo */}
-//       <section className="py-20 bg-gradient-to-br from-indigo-900 to-purple-900 text-white">
+//       <section className="py-20 bg-linear-to-br from-indigo-900 to-purple-900 text-white">
 //         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 //           <SectionTitle 
 //             title="✨ AI-Powered Job Matching" 
@@ -2272,7 +2272,7 @@
 //       </section>
 
 //       {/* 6. Reputation & Trust */}
-//       <section className="py-20 bg-gradient-to-br from-gray-50 to-indigo-50">
+//       <section className="py-20 bg-linear-to-br from-gray-50 to-indigo-50">
 //         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 //           <div className="grid lg:grid-cols-2 gap-12 items-center">
 //             <div>
@@ -2306,7 +2306,7 @@
 //             <div className="relative">
 //               <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
 //                 <div className="flex items-center gap-4 mb-6 pb-6 border-b">
-//                   <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+//                   <div className="w-16 h-16 bg-linear-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
 //                     JS
 //                   </div>
 //                   <div>
@@ -2484,7 +2484,7 @@
           
 //           <div className="relative">
 //             {/* Connection Line */}
-//             <div className="hidden md:block absolute top-8 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-indigo-200 via-purple-200 to-indigo-200"></div>
+//             <div className="hidden md:block absolute top-8 left-1/4 right-1/4 h-0.5 bg-linear-to-r from-indigo-200 via-purple-200 to-indigo-200"></div>
             
 //             <div className="grid md:grid-cols-3 gap-8">
 //               {[
@@ -2493,7 +2493,7 @@
 //                 { step: '3', title: 'Release & Rate', desc: 'Approve work, release payment, and leave feedback' },
 //               ].map((item, i) => (
 //                 <div key={i} className="relative">
-//                   <div className="w-16 h-16 mx-auto bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-lg">
+//                   <div className="w-16 h-16 mx-auto bg-linear-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-lg">
 //                     {item.step}
 //                   </div>
 //                   <h4 className="font-semibold text-gray-900 mb-2">{item.title}</h4>
@@ -2554,7 +2554,7 @@
 //               <a 
 //                 key={area.city}
 //                 href={`/locations/${encodeURIComponent(area.city)}`}
-//                 className="group block bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 hover:shadow-lg transition-all border border-indigo-100"
+//                 className="group block bg-linear-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 hover:shadow-lg transition-all border border-indigo-100"
 //               >
 //                 <div className="flex items-start justify-between mb-4">
 //                   <div>
@@ -2656,7 +2656,7 @@
 //                 href={`/blog/post-${i + 1}`}
 //                 className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all border border-gray-100"
 //               >
-//                 <div className="h-40 bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center text-5xl">
+//                 <div className="h-40 bg-linear-to-br from-indigo-100 to-purple-100 flex items-center justify-center text-5xl">
 //                   {post.image}
 //                 </div>
 //                 <div className="p-6">
@@ -2685,7 +2685,7 @@
 //       </section>
 
 //       {/* Bonus: Freelancer of the Month */}
-//       <section className="py-16 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+//       <section className="py-16 bg-linear-to-r from-indigo-600 to-purple-600 text-white">
 //         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 //           <span className="inline-block px-4 py-1 bg-white/20 rounded-full text-sm font-medium mb-4">
 //             🌟 Community Spotlight
@@ -2717,7 +2717,7 @@
 //           </p>
           
 //           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">
-//             <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-8 border border-indigo-100">
+//             <div className="bg-linear-to-br from-indigo-50 to-purple-50 rounded-2xl p-8 border border-indigo-100">
 //               <h4 className="font-bold text-gray-900 mb-3">For Clients</h4>
 //               <p className="text-gray-600 mb-6">Find the best local freelancers for your next project</p>
 //               <CTAButton variant="primary" href="/clients/post-project" className="w-full justify-center">
@@ -2725,7 +2725,7 @@
 //               </CTAButton>
 //             </div>
             
-//             <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+//             <div className="bg-linear-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
 //               <h4 className="font-bold text-gray-900 mb-3">For Freelancers</h4>
 //               <p className="text-gray-600 mb-6">Get hired by local businesses near you</p>
 //               <CTAButton variant="secondary" href="/freelancers/signup" className="w-full justify-center">
@@ -2759,7 +2759,7 @@
 //       <div className="fixed bottom-6 right-6 z-50">
 //         <button 
 //           onClick={() => showNotification('info', 'Chat widget would open here!')}
-//           className="w-14 h-14 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-all hover:scale-105"
+//           className="w-14 h-14 bg-linear-to-br from-indigo-600 to-purple-600 rounded-full shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-all hover:scale-105"
 //         >
 //           <Icons.Chat />
 //         </button>
@@ -3218,11 +3218,11 @@ const HomePage: React.FC = () => {
   const renderHeroSection = () => (
     <section 
       ref={heroSectionRef}
-      className="relative min-h-screen bg-gradient-to-br from-white via-cyan-50 to-white overflow-hidden"
+      className="relative min-h-screen bg-linear-to-br from-white via-cyan-50 to-white overflow-hidden"
     >
       {/* Animated Cityscape Background */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-cyan-100 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-64 bg-linear-to-t from-cyan-100 to-transparent" />
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
@@ -3243,7 +3243,7 @@ const HomePage: React.FC = () => {
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
             Talent,{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-cyan-700">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-500 to-cyan-700">
               Just Around the Corner
             </span>
           </h1>
@@ -3269,8 +3269,8 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Interactive Map Area */}
-        <div className="relative h-96 md:h-[500px] bg-white/80 backdrop-blur-sm rounded-3xl border-2 border-cyan-200 shadow-xl overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-50/50 to-white">
+        <div className="relative h-96 md:h-125 bg-white/80 backdrop-blur-sm rounded-3xl border-2 border-cyan-200 shadow-xl overflow-hidden">
+          <div className="absolute inset-0 bg-linear-to-br from-cyan-50/50 to-white">
             {/* Grid lines for map effect */}
             {[...Array(10)].map((_, i) => (
               <React.Fragment key={i}>
@@ -3291,7 +3291,7 @@ const HomePage: React.FC = () => {
                 aria-label={`View profile of ${pin.name}, ${pin.skill}`}
               >
                 <div className="relative">
-                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white shadow-lg bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-bold text-lg animate-bounce-slow">
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white shadow-lg bg-linear-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-bold text-lg animate-bounce-slow">
                     {pin.avatar ? (
                       <img src={pin.avatar} alt={pin.name} className="w-full h-full rounded-full object-cover" />
                     ) : pin.name[0]}
@@ -3359,12 +3359,12 @@ const HomePage: React.FC = () => {
 
         <div className="max-w-5xl mx-auto">
           {/* Skill Drag Zone */}
-          <div className="mb-8 p-6 bg-gradient-to-r from-cyan-50 to-white rounded-2xl border-2 border-dashed border-cyan-300">
+          <div className="mb-8 p-6 bg-linear-to-r from-cyan-50 to-white rounded-2xl border-2 border-dashed border-cyan-300">
             <p className="text-center text-gray-600 mb-4 font-medium">
               Drag skills below to build your project profile →
             </p>
             <div 
-              className="flex flex-wrap justify-center gap-3 min-h-[60px] p-4 bg-white rounded-xl border-2 border-cyan-200"
+              className="flex flex-wrap justify-center gap-3 min-h-15 p-4 bg-white rounded-xl border-2 border-cyan-200"
               onDrop={handleDrop}
               onDragOver={handleDragOver}
             >
@@ -3449,7 +3449,7 @@ const HomePage: React.FC = () => {
           )}
 
           <div className="text-center mt-12">
-            <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-cyan-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+            <button className="px-8 py-4 bg-linear-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-cyan-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
               Try the AI Match Now
             </button>
           </div>
@@ -3459,7 +3459,7 @@ const HomePage: React.FC = () => {
   );
 
   const renderVirtualOffice = () => (
-    <section className="py-20 bg-gradient-to-b from-cyan-50 to-white">
+    <section className="py-20 bg-linear-to-b from-cyan-50 to-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -3544,7 +3544,7 @@ const HomePage: React.FC = () => {
             {activeRoom === 'payment' && (
               <div className="animate-fade-in">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">Secure Payment Hub</h3>
-                <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-2xl p-6 text-white mb-6">
+                <div className="bg-linear-to-r from-cyan-500 to-cyan-600 rounded-2xl p-6 text-white mb-6">
                   <div className="flex items-center justify-between mb-4">
                     <span className="font-medium">Milestone Protection</span>
                     <span className="px-3 py-1 bg-white/20 rounded-full text-sm">✓ Active</span>
@@ -3622,11 +3622,11 @@ const HomePage: React.FC = () => {
           {[...Array(4)].map((_, index) => (
             <div 
               key={index}
-              className="group relative bg-gradient-to-br from-white to-cyan-50 rounded-2xl border border-cyan-100 overflow-hidden hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 cursor-pointer"
+              className="group relative bg-linear-to-br from-white to-cyan-50 rounded-2xl border border-cyan-100 overflow-hidden hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 cursor-pointer"
             >
               {/* Front: Preview */}
               <div className="p-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-16 h-16 bg-linear-to-br from-cyan-400 to-cyan-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mb-4 group-hover:scale-110 transition-transform">
                   {index % 2 === 0 ? '👤' : '🏢'}
                 </div>
                 <h4 className="font-semibold text-gray-900 mb-1">
@@ -3666,7 +3666,7 @@ const HomePage: React.FC = () => {
               </div>
               
               {/* Decorative corner */}
-              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-cyan-200 to-transparent opacity-50" />
+              <div className="absolute top-0 right-0 w-20 h-20 bg-linear-to-bl from-cyan-200 to-transparent opacity-50" />
             </div>
           ))}
         </div>
@@ -3681,7 +3681,7 @@ const HomePage: React.FC = () => {
   );
 
   const renderMatchupQuiz = () => (
-    <section className="py-20 bg-gradient-to-br from-cyan-600 to-cyan-800 text-white">
+    <section className="py-20 bg-linear-to-br from-cyan-600 to-cyan-800 text-white">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -3815,10 +3815,10 @@ const HomePage: React.FC = () => {
 
         {/* Carousel Placeholder */}
         <div className="max-w-5xl mx-auto">
-          <div className="relative bg-gradient-to-br from-cyan-50 to-white rounded-3xl p-8 md:p-12 border border-cyan-200">
+          <div className="relative bg-linear-to-br from-cyan-50 to-white rounded-3xl p-8 md:p-12 border border-cyan-200">
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1">
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white text-4xl font-bold mb-6 shadow-lg">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-linear-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white text-4xl font-bold mb-6 shadow-lg">
                   👩‍💻
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Maria Rodriguez</h3>
@@ -3846,7 +3846,7 @@ const HomePage: React.FC = () => {
                       <span className="font-semibold text-cyan-700">+340%</span>
                     </div>
                     <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-cyan-400 to-cyan-600 rounded-full" style={{ width: '95%' }} />
+                      <div className="h-full bg-linear-to-r from-cyan-400 to-cyan-600 rounded-full" style={{ width: '95%' }} />
                     </div>
                   </div>
                 </div>
@@ -3902,7 +3902,7 @@ const HomePage: React.FC = () => {
   );
 
   const renderReputationTracker = () => (
-    <section className="py-20 bg-gradient-to-b from-white to-cyan-50">
+    <section className="py-20 bg-linear-to-b from-white to-cyan-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -3932,7 +3932,7 @@ const HomePage: React.FC = () => {
               <div className="flex-1 w-full md:max-w-md">
                 <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
                   <div 
-                    className="h-full bg-gradient-to-r from-cyan-400 to-cyan-600 rounded-full transition-all duration-700 animate-pulse-slow"
+                    className="h-full bg-linear-to-r from-cyan-400 to-cyan-600 rounded-full transition-all duration-700 animate-pulse-slow"
                     style={{ width: `${progressToNextLevel}%` }}
                   />
                 </div>
@@ -3955,7 +3955,7 @@ const HomePage: React.FC = () => {
                 key={badge.id}
                 className={`p-5 rounded-2xl border-2 transition-all duration-300 ${
                   badge.unlocked 
-                    ? 'bg-gradient-to-br from-cyan-50 to-white border-cyan-300 hover:shadow-lg hover:shadow-cyan-500/20' 
+                    ? 'bg-linear-to-br from-cyan-50 to-white border-cyan-300 hover:shadow-lg hover:shadow-cyan-500/20' 
                     : 'bg-gray-50 border-gray-200 opacity-60'
                 }`}
               >
@@ -3977,7 +3977,7 @@ const HomePage: React.FC = () => {
             <p className="text-gray-600 italic mb-4">
               "Unlock Achievements as You Go. Build Your Reputation with Every Project."
             </p>
-            <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-cyan-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+            <button className="px-8 py-4 bg-linear-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-cyan-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
               Start Earning Your Reputation Today
             </button>
           </div>
@@ -4000,7 +4000,7 @@ const HomePage: React.FC = () => {
 
         <div className="max-w-5xl mx-auto">
           {/* Map Container */}
-          <div className="relative h-96 md:h-[500px] bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl border-2 border-cyan-200 overflow-hidden shadow-xl">
+          <div className="relative h-96 md:h-125 bg-linear-to-br from-cyan-50 to-blue-50 rounded-3xl border-2 border-cyan-200 overflow-hidden shadow-xl">
             {/* Map Background Pattern */}
             <div className="absolute inset-0 opacity-30">
               <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -4039,7 +4039,7 @@ const HomePage: React.FC = () => {
                 aria-label={`View ${freelancer.name}`}
               >
                 <div className="relative">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-3 border-white shadow-lg bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center text-white font-bold text-sm hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-3 border-white shadow-lg bg-linear-to-br from-cyan-500 to-cyan-700 flex items-center justify-center text-white font-bold text-sm hover:scale-110 transition-transform">
                     {freelancer.avatar ? (
                       <img src={freelancer.avatar} alt={freelancer.name} className="w-full h-full rounded-full object-cover" />
                     ) : freelancer.name[0]}
@@ -4103,7 +4103,7 @@ const HomePage: React.FC = () => {
   );
 
   const renderFeaturedProjects = () => (
-    <section className="py-20 bg-gradient-to-b from-cyan-50 to-white">
+    <section className="py-20 bg-linear-to-b from-cyan-50 to-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
           <div>

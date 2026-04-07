@@ -126,7 +126,7 @@ export const addProject = async (req, res) => {
 export const updateProjectStatus = async (req, res) => {
   try {
     const { projectId } = req.params;
-    const { status } = req.body;
+    const { status, title, description, budget, duration } = req.body;
 
     const profile = await Profile.findOne({ owner: req.user._id });
      if (!profile) return res.status(404).json({ message: "Profile not found" });
@@ -134,10 +134,45 @@ export const updateProjectStatus = async (req, res) => {
     const project = profile.projects.id(projectId);
     if (!project) return res.status(404).json({ message: "Project not found" });
 
-    project.status = status;
+    if (typeof status === "string") {
+      const allowedStatuses = ["Open", "In Progress", "Completed"];
+      if (!allowedStatuses.includes(status)) {
+        return res.status(400).json({ message: "Invalid project status" });
+      }
+      project.status = status;
+    }
+
+    if (typeof title === "string") project.title = title.trim();
+    if (typeof description === "string") project.description = description.trim();
+    if (budget !== undefined && budget !== null) project.budget = String(budget).trim();
+    if (typeof duration === "string") project.duration = duration.trim();
+
     await profile.save();
 
     res.json(project);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const deleteProject = async (req, res) => {
+  try {
+    const { projectId } = req.params;
+
+    const profile = await Profile.findOne({ owner: req.user._id });
+    if (!profile) return res.status(404).json({ message: "Profile not found" });
+
+    const beforeCount = profile.projects.length;
+    profile.projects = profile.projects.filter(
+      (project) => String(project._id) !== String(projectId)
+    );
+
+    if (profile.projects.length === beforeCount) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    await profile.save();
+    res.json({ message: "Project deleted", projects: profile.projects });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -172,7 +207,7 @@ export const searchClients = async (req, res) => {
       if (maxBudget) query["projects.budget"].$lte = Number(maxBudget);
     }
 
-    const clients = await ClientProfile.find(query);
+    const clients = await Profile.find(query);
 
     res.json(clients);
   } catch (error) {

@@ -25,6 +25,8 @@ import clientProjects from './routes/clientProjects.js';
 import freelancerRoutes from './routes/freelancerRoutes.js';
 import testimonialRoutes from "./routes/testimonialRoutes.js";
 import faqRoutes from "./routes/faqRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
+import freelancerProfileRoutes from './routes/freelancerProfileRoutes.js';
 
 
 dotenv.config();
@@ -55,7 +57,7 @@ const corsOptions = {
   },
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  allowedHeaders: ["Content-Type", "Authorization", "Cache-Control", "Pragma"],
 };
 
 app.use(
@@ -70,6 +72,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("SkillSphere API Running...");
 });
+
+
 
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);
@@ -88,6 +92,8 @@ app.use("/api/projects", clientProjects);
 app.use('/api/freelancer', freelancerRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/faqs", faqRoutes);
+app.use("/api/profile", profileRoutes);
+app.use("/api/freelancer/profile", freelancerProfileRoutes);
 
 
 // Start server

@@ -21,7 +21,8 @@ import Freelancers from "./pages/findFreelancers/Freelancers";
 import Proposals from "./pages/Proposals";
 import BookSlot from "./pages/BookSlot";
 import FreelancerDashboardPage from "./pages/freelancer/Dashboard";
-import FreelancerProfilePage from "./pages/freelancer/Profile";
+// import FreelancerProfilePage from "..//freelancer/Profile";
+import FreelancerProfile from "./components/freelancer/profile/FreelancerProfile";
 import FreelancerProposals from "./pages/freelancer/FreelancerProposals";
 import Footer from "./layouts/Footer/Footer";
 import FreelancerDashboard from "./pages/FreelancerDashboard";
@@ -31,6 +32,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ClientDashboard from "./pages/client/ClientDashboard";
 import ClientProposals from "./pages/client/ClientProposals";
 import ClientProfilePage from "./pages/auth/ClientProfile";
+// import ClientProfilePage from './pages/client/ClientProfile';
 
 
 function App() {
@@ -132,7 +134,7 @@ function App() {
           element={
             <ProtectedRoute>
              <MainLayout>
-                <FreelancerProfilePage />
+                <FreelancerProfile />
              </MainLayout>
             </ProtectedRoute>
           }

@@ -14,6 +14,12 @@ const FreelancerSchema = new Schema({
     name: { type: String, required: true, trim: true },
     proficiency: { type: Number, min: 0, max: 100, default: 50 }
   }],
+
+  experience: [{
+    title: { type: String, trim: true, default: "" },
+    company: { type: String, trim: true, default: "" },
+    duration: { type: String, trim: true, default: "" },
+  }],
   
   portfolio: [{
     title: { type: String, required: true },

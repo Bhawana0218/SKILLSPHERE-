@@ -66,6 +66,19 @@ function Login() {
     }
   };
 
+  const redirectToDashboard = (role: string) => {
+  switch (role) {
+    case "freelancer":
+      navigate("/freelancer/dashboard");
+      break;
+    case "client":
+      navigate("/client/dashboard");
+      break;
+    default:
+      navigate("/dashboard"); // fallback
+  }
+};
+
   //  Submit Handler
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -86,7 +99,8 @@ function Login() {
         localStorage.setItem("token", successData.token);
         localStorage.setItem("user", JSON.stringify(successData));
         toast.success("Welcome back!");
-        navigate("/dashboard");
+        redirectToDashboard(successData.role);
+        // navigate("/dashboard");
         return;
       }
 
@@ -99,7 +113,8 @@ function Login() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data));
       toast.success("Verified. Logged in.");
-      navigate("/dashboard");
+      redirectToDashboard(data.role);
+      // navigate("/dashboard");
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Error");
     } finally {

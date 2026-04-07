@@ -81,7 +81,7 @@ const getDashboard = async (req, res) => {
 // @route   PUT /api/freelancer/profile
 const updateProfile = async (req, res) => {
   try {
-    const { name, title, bio, hourlyRate, location, skills, portfolio, availability } = req.body;
+    const { name, title, bio, hourlyRate, location, skills, experience, portfolio, availability } = req.body;
 
     // Validate required fields
     if (!name || !title || !bio) {
@@ -114,6 +114,16 @@ const updateProfile = async (req, res) => {
           }))
       : [];
 
+    const normalizedExperience = Array.isArray(experience)
+      ? experience
+          .filter((item) => typeof item?.title === "string" && item.title.trim().length > 0)
+          .map((item) => ({
+            title: item.title.trim(),
+            company: typeof item?.company === "string" ? item.company.trim() : "",
+            duration: typeof item?.duration === "string" ? item.duration.trim() : "",
+          }))
+      : [];
+
     let freelancer = await Freelancer.findOne({ userId });
 
     if (freelancer) {
@@ -127,6 +137,10 @@ const updateProfile = async (req, res) => {
       // Handle skills - ensure proper structure
       if (Array.isArray(skills)) {
         freelancer.skills = normalizedSkills;
+      }
+
+      if (Array.isArray(experience)) {
+        freelancer.experience = normalizedExperience;
       }
       
       // Handle portfolio - ensure proper structure
@@ -147,6 +161,7 @@ const updateProfile = async (req, res) => {
         hourlyRate: hourlyRate || 0,
         location: location || '',
         skills: normalizedSkills,
+        experience: normalizedExperience,
         portfolio: normalizedPortfolio,
         availability: availability || 'full-time',
         stats: {
@@ -170,9 +185,11 @@ const updateProfile = async (req, res) => {
         photoUrl: freelancer.photoUrl,
         completionRate: calculateProfileCompletion(freelancer),
         skills: freelancer.skills,
+        experience: freelancer.experience || [],
         hourlyRate: freelancer.hourlyRate,
         bio: freelancer.bio,
-        location: freelancer.location
+        location: freelancer.location,
+        availability: freelancer.availability,
       }
     });
   } catch (error) {
@@ -201,6 +218,7 @@ const getProfile = async (req, res) => {
         hourlyRate: freelancer.hourlyRate,
         location: freelancer.location,
         skills: freelancer.skills || [],
+        experience: freelancer.experience || [],
         portfolio: freelancer.portfolio || [],
         availability: freelancer.availability,
         profileCompletion: calculateProfileCompletion(freelancer),
@@ -233,6 +251,7 @@ const calculateProfileCompletion = (f) => {
   if (f.bio && f.bio.length > 50) score += 15;
   if (f.photoUrl) score += 10;
   if (f.skills && f.skills.length > 0) score += 15;
+  if (f.experience && f.experience.length > 0) score += 10;
   if (f.portfolio && f.portfolio.length > 0) score += 20;
   if (f.resumeUrl) score += 10;
   if (f.hourlyRate) score += 10;
@@ -287,6 +306,7 @@ const calculateAndStoreDashboardData = async (userId) => {
     const profileSteps = [
       { name: "Basic Info", completed: !!(freelancer.name && freelancer.title && freelancer.bio) },
       { name: "Skills", completed: freelancer.skills && freelancer.skills.length > 0 },
+      { name: "Experience", completed: freelancer.experience && freelancer.experience.length > 0 },
       { name: "Portfolio", completed: freelancer.portfolio && freelancer.portfolio.length > 0 },
       { name: "Resume", completed: !!freelancer.resumeUrl },
       { name: "Photo", completed: !!freelancer.photoUrl },
