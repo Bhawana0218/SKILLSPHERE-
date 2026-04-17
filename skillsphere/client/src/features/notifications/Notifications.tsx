@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
 import API from "../../services/api";
-
-// Socket instance
-const socket = io("https://skillsphere-0iqe.onrender.com");
+import socket from "../../services/socket";
 
 // Notification type
 interface Notification {
@@ -26,20 +23,22 @@ const Notifications: React.FC<NotificationsProps> = ({ currentUserId }) => {
   useEffect(() => {
     if (!currentUserId) return;
 
+    const handleReceiveNotification = (notif: Notification) => {
+      setNotifications((prev) => [notif, ...prev]);
+    };
+
     // Join private user room
     socket.emit("joinUser", currentUserId);
 
     // Listen for real-time notifications
-    socket.on("receiveNotification", (notif: Notification) => {
-      setNotifications((prev) => [notif, ...prev]);
-    });
+    socket.on("receiveNotification", handleReceiveNotification);
 
     // Fetch notifications from backend
     fetchNotifications();
 
     // Cleanup listener on unmount
     return () => {
-      socket.off("receiveNotification");
+      socket.off("receiveNotification", handleReceiveNotification);
     };
   }, [currentUserId]);
 

@@ -1,8 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { io, Socket } from "socket.io-client";
-
-// Socket instance
-const socket: Socket = io("https://skillsphere-0iqe.onrender.com");
+import socket from "../../services/socket";
 
 // Types
 interface ChatProps {
@@ -28,19 +25,23 @@ function Chat({ roomId, currentUser }: ChatProps) {
 
   // Join room and setup socket listeners
   useEffect(() => {
-    socket.emit("joinRoom", roomId);
-
-    socket.on("receiveMessage", (msg: Message) => {
+    const handleReceiveMessage = (msg: Message) => {
       setMessages((prev) => [...prev, msg]);
-    });
+    };
 
-    socket.on("typing", ({ sender }: TypingEvent) => {
+    const handleTypingEvent = ({ sender }: TypingEvent) => {
       setTypingUser(sender);
       setTimeout(() => setTypingUser(""), 2000);
-    });
+    };
+
+    socket.emit("joinRoom", roomId);
+
+    socket.on("receiveMessage", handleReceiveMessage);
+    socket.on("typing", handleTypingEvent);
 
     return () => {
-      socket.disconnect();
+      socket.off("receiveMessage", handleReceiveMessage);
+      socket.off("typing", handleTypingEvent);
     };
   }, [roomId]);
 

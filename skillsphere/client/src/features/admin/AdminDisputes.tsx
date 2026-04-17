@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { FileText, ShieldCheck } from "lucide-react";
 import toast from "react-hot-toast";
+import { API_BASE_URL } from "../../config/runtimeUrls";
 import API from "../../services/api";
 
 interface UserRef {
@@ -60,10 +61,7 @@ const statusBadgeClass: Record<string, string> = {
   Rejected: "border-rose-200 bg-rose-50 text-rose-700",
 };
 
-const uploadsBaseUrl = ((import.meta.env.VITE_API_URL as string) || "https://skillsphere-0iqe.onrender.com/api").replace(
-  /\/api\/?$/,
-  ""
-);
+const uploadsBaseUrl = API_BASE_URL.replace(/\/api\/?$/, "");
 
 const AdminDisputes = () => {
   const [summary, setSummary] = useState<DisputeSummary>({

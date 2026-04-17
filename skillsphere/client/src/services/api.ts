@@ -1,4 +1,5 @@
 import axios, { type InternalAxiosRequestConfig } from "axios";
+import { API_BASE_URL } from "../config/runtimeUrls";
 
 // User type
 interface User {
@@ -11,7 +12,7 @@ interface User {
 
 //  Axios instance
 const API = axios.create({
-  baseURL: (import.meta.env.VITE_API_URL as string) || "https://skillsphere-0iqe.onrender.com/api",
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
