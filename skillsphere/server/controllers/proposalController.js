@@ -13,6 +13,9 @@ export const createProposal = async (req, res) => {
     }
 
     const job = await Job.findById(jobId);
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
 
     //  2. PREVENT DUPLICATE PROPOSALS (ADD HERE)
     const existing = await Proposal.findOne({
@@ -29,6 +32,7 @@ export const createProposal = async (req, res) => {
     const proposal = await Proposal.create({
       job: new mongoose.Types.ObjectId(jobId),
       freelancer: req.user._id,
+      client: job.client || job.postedBy || null,
       bidAmount,
       
       duration,
@@ -71,34 +75,33 @@ export const rejectProposal = async (req, res) => {
 
 
 export const getProposalsByClient = async (req, res) => {
-
-  // const job = await Job.findById(jobId); 
   try {
     const { clientId } = req.params;
 
-    // First try direct client field
-    let proposals = await Proposal.find({ client: clientId })
-      .populate("freelancer", "name email")
-      .populate("job", "title");
-
-    // 🔥 Fallback (for old data)
-    if (proposals.length === 0) {
-      const jobs = await Job.find({ client: clientId });
-      const jobIds = jobs.map(j => j._id);
-
-      proposals = await Proposal.find({
-        job: { $in: jobIds },
-      })
-        .populate("freelancer", "name email")
-        .populate("job", "title");
+    if (!mongoose.Types.ObjectId.isValid(clientId)) {
+      return res.status(400).json({ message: "Invalid Client ID" });
     }
 
-    res.json(proposals);
+    const clientObjectId = new mongoose.Types.ObjectId(clientId);
+
+    // Support both current and legacy owner fields in Job docs.
+    const jobs = await Job.find({
+      $or: [{ client: clientObjectId }, { postedBy: clientObjectId }],
+    }).select("_id");
+    const jobIds = jobs.map((job) => job._id);
+
+    const proposals = await Proposal.find({
+      $or: [{ client: clientObjectId }, { job: { $in: jobIds } }],
+    })
+      .populate("freelancer", "name email")
+      .populate("job", "title")
+      .sort({ createdAt: -1 });
+
+    res.json(proposals || []);
   } catch (error) {
     res.status(500).json({ message: "Error fetching proposals" });
   }
 };
-
 // export const getProposalsByClient = async (req, res) => {
 //   try {
 //     const { clientId } = req.params;
@@ -183,3 +186,4 @@ export const checkApplied = async (req, res) => {
 
   res.json({ applied: !!existing });
 };
+
