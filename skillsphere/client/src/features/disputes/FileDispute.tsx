@@ -71,7 +71,7 @@ const statusClass: Record<string, string> = {
   Rejected: "border-rose-200 bg-rose-50 text-rose-700",
 };
 
-const uploadsBaseUrl = ((import.meta.env.VITE_API_URL as string) || "http://localhost:5000/api").replace(
+const uploadsBaseUrl = ((import.meta.env.VITE_API_URL as string) || "https://skillsphere-0iqe.onrender.com/api").replace(
   /\/api\/?$/,
   ""
 );

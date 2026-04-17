@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import API from "../../services/api";
 
 // Socket instance
-const socket = io("http://localhost:5000");
+const socket = io("https://skillsphere-0iqe.onrender.com");
 
 // Notification type
 interface Notification {
